@@ -1,25 +1,30 @@
 import './App.css'
+import data from './CollegeBasketballTeams.json'
 
-const bandNames = [
-    {name: 'Dire Straits', members: 'Mark Knopfler, David Knopfler, John Illsley, Pick Withers', formed: 1977,},
-    {name: 'R.E.M.', members: 'Michael Stipe, Peter Buck, Mike Mills, Bill Berry', formed: 1980,},
-    {name: 'Collective Soul', members: 'Ed Roland, Dean Roland, David Neal, Ross Childress, Shane Evans', formed: 1992,},
-  ];
-
-function Welcome() {
-  return <h1>Criminally Underrated Bands</h1>;
+type SchoolType = {
+  school: string;
+  name: string;
+  city: string;
+  state: string;
+  [key: string]: unknown;
 }
 
-function Band ({name, members, formed}: {name: string; members: string; formed: number}) {
+const SchoolNames = (data as unknown as { teams: SchoolType[] }).teams
+
+function Welcome() {
+  return <h1>March Madness team information!</h1>;
+}
+
+function School ({school, name, city, state}: {school: string; name: string; city: string; state: string; [key: string]: unknown}) {
 
   
 
   return (
     <>
       <img/>
-      <h2>{name}</h2>
-      <h3>Original Members: {members}</h3>
-      <h3>Formed: {formed}</h3>
+      <h2>{school}</h2>
+      <h3>Mascot: {name}</h3>
+      <h3>Location: {`${city}, ${state}`}</h3>
     </>
     
 
@@ -27,14 +32,14 @@ function Band ({name, members, formed}: {name: string; members: string; formed: 
 }
 
 
-function BandList(){
+function SchoolList(){
   
 
   return(
     <>
       {
-        bandNames.map((singleBand) => (
-          <Band {...singleBand}/>
+        SchoolNames.map((singleSchool) => (
+          <School key={singleSchool.school} {...singleSchool}/>
         ))
       }
     </>
@@ -48,7 +53,7 @@ function App() {
   return (
     <>
       <Welcome/>
-      <BandList/>
+      <SchoolList/>
       
     </>
   )
